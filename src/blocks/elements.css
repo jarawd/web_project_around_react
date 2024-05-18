@@ -84,6 +84,11 @@
   height: 19.3px;
   background-image: url(../images/trash.svg);
   transition: opacity 0.2s ease;
+  visibility: hidden;
+}
+
+.elements__trash-visible {
+  visibility: visible;
 }
 
 .elements__trash:hover {

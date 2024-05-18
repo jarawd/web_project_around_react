@@ -3,7 +3,7 @@ class Api {
     this._address = address;
     this._groupId = groupId;
     this._token = token;
-    this._baseUrl = `https://around.nomoreparties.co/v1/${this._groupId}`;
+    this._baseUrl = `${this._address}${this._groupId}`;
   }
 
   setProfileInfo() {
@@ -46,7 +46,7 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        avatar: url,
+        avatar: url.avatar,
       }),
     });
   }
@@ -108,28 +108,20 @@ class Api {
     );
   }
 
-  setUser(selector) {
-    return fetch(
-      `https://around.nomoreparties.co/v1/${this._groupId}/users/me`,
-      {
-        method: "PATCH",
-        headers: {
-          authorization: this._token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: selector.querySelector(".popup__form-item_name").value,
-          about: selector.querySelector(".popup__form-item_info").value,
-        }),
-      }
-    );
+  setUser(user) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: user.name,
+        about: user.about,
+      }),
+    });
   }
 }
-
-/*
-My token: e42f8e22-9ca0-486e-b216-ea9a771afa3a
-Gropu ID: web_es_12
-*/
 
 const api = new Api({
   address: `https://around.nomoreparties.co/v1/`,
